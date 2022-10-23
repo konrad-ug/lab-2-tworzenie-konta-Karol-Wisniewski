@@ -27,4 +27,20 @@ class TestCreateBankAccount(unittest.TestCase):
         trzecie_konto = Konto("Monika", "Kociołek", "92090889272", "PROM_-V69")
         self.assertEqual(trzecie_konto.saldo, 0, "Saldo się nie zgadza!")
 
+    def test_poprawny_kod_promocyjny_mlody(self):
+        czwarte_konto = Konto("Albert", "Einstein", "92090889272", "PROM_V?9")
+        self.assertEqual(czwarte_konto.saldo, 50)
+
+    def test_poprawny_kod_promocyjny_senior(self):
+        czwarte_konto = Konto("Paweł", "Einstein", "58090889272", "PROM_V?9")
+        self.assertEqual(czwarte_konto.saldo, 0)
+
+    def test_niepoprawny_kod_promocyjny_mlody(self):
+        czwarte_konto = Konto("Przemysław", "Tytoń", "04290889272", "PROM_V?9-")
+        self.assertEqual(czwarte_konto.saldo, 0)
+
+    def test_niepoprawny_kod_promocyjny_senior(self):
+        czwarte_konto = Konto("Jarosław", "Tytoń", "55020889272", "PROM_V?9-")
+        self.assertEqual(czwarte_konto.saldo, 0)
+
     #tutaj proszę dodawać nowe testy
