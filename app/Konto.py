@@ -5,6 +5,26 @@ class Konto:
         self.saldo = 50 if kod != None and kod.startswith("PROM_") and len(kod) == 8 and oblicz_rok_urodzenia_z_peselu(pesel) >= 1960 else 0
         self.pesel = pesel if len(pesel) == 11 else "Niepoprawny pesel!"
 
+    def zaksieguj_przelew_wychodzacy(self, kwota):
+        self.saldo = self.saldo - kwota if kwota <= self.saldo and kwota > 0 else self.saldo
+
+    def zaksieguj_przelew_wychodzacy_ekspresowy(self, kwota):
+        self.saldo = self.saldo - kwota - 1 if kwota <= self.saldo and kwota > 0 else self.saldo
+
+    def zaksieguj_przelew_przychodzacy(self, kwota):
+        self.saldo = self.saldo + kwota if kwota > 0 else self.saldo
+
+
+class KontoFirmowe(Konto):
+    def __init__(self, nazwa_firmy, NIP):
+        self.nazwa_firmy = nazwa_firmy
+        self.NIP = NIP if len(NIP) == 10 else "Niepoprawny NIP!"
+        self.saldo = 0
+
+    def zaksieguj_przelew_wychodzacy_ekspresowy(self, kwota):
+        self.saldo = self.saldo - kwota - 5 if kwota <= self.saldo and kwota > 0 else self.saldo
+
+
 
 def oblicz_rok_urodzenia_z_peselu(pesel: str) -> int:
     rok = int(pesel[0:2])
