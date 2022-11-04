@@ -1,5 +1,7 @@
 import unittest
 
+from ..Konto import oblicz_rok_urodzenia_z_peselu
+
 from ..Konto import Konto
 
 from ..Konto import KontoFirmowe
@@ -57,3 +59,9 @@ class TestCreateBankAccount(unittest.TestCase):
     def test_niepoprawny_kod_promocyjny_senior(self):
         czwarte_konto = Konto("Jarosław", "Tytoń", "55020889272", "PROM_V?9-")
         self.assertEqual(czwarte_konto.saldo, 0)
+
+    def test_licz_pesel_senior(self):
+        self.assertEqual(oblicz_rok_urodzenia_z_peselu("58090889272"), 1958)
+
+    def test_licz_pesel_mlody(self):
+        self.assertEqual(oblicz_rok_urodzenia_z_peselu("01320889272"), 2001)

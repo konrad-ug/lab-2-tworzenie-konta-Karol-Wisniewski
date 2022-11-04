@@ -30,13 +30,7 @@ def oblicz_rok_urodzenia_z_peselu(pesel: str) -> int:
     rok = int(pesel[0:2])
     miesiac = int(pesel[2:4])
 
-    if miesiac > 80:
-        rok += 1800
-    elif miesiac > 60:
-        rok += 2200
-    elif miesiac > 40:
-        rok += 2100
-    elif miesiac > 20:
+    if miesiac > 20:
         rok += 2000
     else:
         rok += 1900
