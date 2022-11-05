@@ -48,4 +48,45 @@ class TestMakeTransfers(unittest.TestCase):
         piąte_konto.zaksieguj_przelew_wychodzacy_ekspresowy(500)
         self.assertEqual(piąte_konto.saldo, 50)
 
+    def test_historia_konta_osobistego_po_przelewie_wychodzacym_zwyklym(self):
+        drugie_konto = Konto("Marek", "Januszewski", "87010883276")
+        drugie_konto.saldo = 1000
+        drugie_konto.zaksieguj_przelew_wychodzacy(500)
+        drugie_konto.zaksieguj_przelew_wychodzacy(400)
+        self.assertEqual(drugie_konto.historia, [-500, -400])
+
+    def test_historia_konta_osobistego_po_przelewie_wychodzacym_ekspresowym(self):
+        drugie_konto = Konto("Marek", "Januszewski", "87010883276")
+        drugie_konto.saldo = 1000
+        drugie_konto.zaksieguj_przelew_wychodzacy_ekspresowy(500)
+        drugie_konto.zaksieguj_przelew_wychodzacy_ekspresowy(400)
+        self.assertEqual(drugie_konto.historia, [-500, -1, -400, -1])
+
+    def test_historia_konta_osobistego_po_przelewie_przychodzacym(self):
+        drugie_konto = Konto("Marek", "Januszewski", "87010883276")
+        drugie_konto.zaksieguj_przelew_przychodzacy(500)
+        self.assertEqual(drugie_konto.historia, [500])
+
+    def test_historia_konta_firmowego_po_przelewie_wychodzacym_zwklym(self):
+        piąte_konto = KontoFirmowe("Polsat", "0123456788")
+        piąte_konto.saldo = 5000
+        piąte_konto.zaksieguj_przelew_wychodzacy(500)
+        piąte_konto.zaksieguj_przelew_wychodzacy(300)
+        piąte_konto.zaksieguj_przelew_wychodzacy(700)
+        self.assertEqual(piąte_konto.historia, [-500, -300, -700])
+
+    def test_historia_konta_firmowego_po_przelewie_wychodzacym_ekspresowym(self):
+        piąte_konto = KontoFirmowe("Polsat", "0123456788")
+        piąte_konto.saldo = 5000
+        piąte_konto.zaksieguj_przelew_wychodzacy_ekspresowy(500)
+        piąte_konto.zaksieguj_przelew_wychodzacy_ekspresowy(300)
+        piąte_konto.zaksieguj_przelew_wychodzacy_ekspresowy(700)
+        self.assertEqual(piąte_konto.historia, [-500, -5, -300, -5, -700, -5])
+
+    def test_historia_konta_firmowego_po_przelewie_przychodzacym(self):
+        piąte_konto = KontoFirmowe("Polsat", "0123456788")
+        piąte_konto.zaksieguj_przelew_przychodzacy(500)
+        self.assertEqual(piąte_konto.historia, [500])
+
+
     
