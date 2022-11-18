@@ -18,7 +18,6 @@ class Konto:
     def zaksieguj_przelew_przychodzacy(self, kwota):
         self.saldo = self.saldo + kwota if kwota > 0 else self.saldo
         self.historia.append(kwota)
-<<<<<<< HEAD
 
     def zaciagnij_kredyt(self, kwota):
         ostatnie_3_transakcje_czy_dodatnie = all(i > 0 for i in self.historia[-3:])
@@ -28,8 +27,6 @@ class Konto:
             return True
         else:
             return False
-=======
->>>>>>> main
 
 
 class KontoFirmowe(Konto):
