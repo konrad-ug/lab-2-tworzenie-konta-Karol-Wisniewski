@@ -47,5 +47,3 @@ class TestMakeTransfers(unittest.TestCase):
         piąte_konto.saldo = 50
         piąte_konto.zaksieguj_przelew_wychodzacy_ekspresowy(500)
         self.assertEqual(piąte_konto.saldo, 50)
-
-    

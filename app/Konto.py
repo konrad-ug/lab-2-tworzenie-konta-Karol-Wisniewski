@@ -14,6 +14,16 @@ class Konto:
     def zaksieguj_przelew_przychodzacy(self, kwota):
         self.saldo = self.saldo + kwota if kwota > 0 else self.saldo
 
+    def zaciagnij_kredyt(self, kwota):
+        ostatnie_3_transakcje_czy_dodatnie = all(i > 0 for i in self.historia[-3:])
+        suma_ostatnich_5_transakcji = sum(self.historia[-5:])
+        if ((suma_ostatnich_5_transakcji > kwota) and (ostatnie_3_transakcje_czy_dodatnie)):
+            self.saldo = self.saldo + kwota
+            return True
+        else:
+            return False
+
+
 
 class KontoFirmowe(Konto):
     def __init__(self, nazwa_firmy, NIP):
