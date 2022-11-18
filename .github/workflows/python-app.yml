@@ -38,5 +38,6 @@ jobs:
       run: |
         python3 -m unittest
         pip3 install coverage
+        pip3 install parameterized
         python3 -m coverage run -m unittest
         python3 -m coverage report --fail-under=100
