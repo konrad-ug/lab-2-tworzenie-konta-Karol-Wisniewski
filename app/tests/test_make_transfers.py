@@ -86,4 +86,11 @@ class TestMakeTransfers(unittest.TestCase):
     def test_historia_konta_firmowego_po_przelewie_przychodzacym(self):
         piąte_konto = KontoFirmowe("Polsat", "0123456788")
         piąte_konto.zaksieguj_przelew_przychodzacy(500)
+<<<<<<< HEAD
         self.assertEqual(piąte_konto.historia, [500])
+=======
+        self.assertEqual(piąte_konto.historia, [500])
+
+
+    
+>>>>>>> main
