@@ -1,35 +1,48 @@
 import unittest
 
+from parameterized import parameterized
+
 from ..Konto import Konto
 
 from ..Konto import KontoFirmowe
 
 class TestTakeOutLoan(unittest.TestCase):
-    
-    def test_zaciagnij_kredyt_konto_osobiste_spelnione_warunki(self):
-        pierwsze_konto = Konto("Dariusz", "Januszewski", "87090883276")
-        pierwsze_konto.historia = [-100, 100, 100, 100, 600]
-        czy_przyznany = pierwsze_konto.zaciagnij_kredyt(500)
-        self.assertTrue(czy_przyznany)
-        self.assertEqual(pierwsze_konto.saldo, 500)
 
-    def test_zaciagnij_kredyt_konto_osobiste_nieprawidlowa_historia(self):
-        pierwsze_konto = Konto("Dariusz", "Januszewski", "87090883276")
-        pierwsze_konto.historia = [-100, 100, -100, 100, 600]
-        czy_przyznany = pierwsze_konto.zaciagnij_kredyt(500)
-        self.assertFalse(czy_przyznany)
-        self.assertEqual(pierwsze_konto.saldo, 0)
-    
-    def test_zaciagnij_kredyt_konto_osobiste_pusta_historia(self):
-        pierwsze_konto = Konto("Dariusz", "Januszewski", "87090883276")
-        pierwsze_konto.historia = []
-        czy_przyznany = pierwsze_konto.zaciagnij_kredyt(500)
-        self.assertFalse(czy_przyznany)
-        self.assertEqual(pierwsze_konto.saldo, 0)
+    imie = "Dariusz"
+    nazwisko = "Januszewski"
+    pesel = "87090883276"
 
-    def test_zaciagnij_kredyt_konto_osobiste_niewystarczajace_przychody(self):
-        pierwsze_konto = Konto("Dariusz", "Januszewski", "87090883276")
-        pierwsze_konto.historia = [-200, 100, 100, 100, 100]
-        czy_przyznany = pierwsze_konto.zaciagnij_kredyt(500)
-        self.assertFalse(czy_przyznany)
-        self.assertEqual(pierwsze_konto.saldo, 0)
+    def setUp(self):
+        self.konto_osobiste = Konto(self.imie, self.nazwisko, self.pesel)
+
+    @parameterized.expand([
+        ([-100, 100, 100, 100, 600], 500, True, 500),
+        ([-100, 100, -100, 100, 600], 500, False, 0),
+        ([], 500, False, 0),
+        ([1000], 500, False, 0),
+        ([-200, 100, 100, 100, 100], 500, False, 0)
+    ])
+    
+    def test_zaciagnij_kredyt_konto_osobiste(self, historia, kwota, oczekiwany_wynik, oczekiwane_saldo):
+        self.konto_osobiste.historia = historia
+        czy_przyznany = self.konto_osobiste.zaciagnij_kredyt(kwota)
+        self.assertEqual(czy_przyznany, oczekiwany_wynik)
+        self.assertEqual(self.konto_osobiste.saldo, oczekiwane_saldo)
+
+    # def test_zaciagnij_kredyt_konto_osobiste_nieprawidlowa_historia(self):
+    #     konto_osobiste.historia = [-100, 100, -100, 100, 600]
+    #     czy_przyznany = konto_osobiste.zaciagnij_kredyt(500)
+    #     self.assertFalse(czy_przyznany)
+    #     self.assertEqual(konto_osobiste.saldo, 0)
+    
+    # def test_zaciagnij_kredyt_konto_osobiste_pusta_historia(self):
+    #     konto_osobiste.historia = []
+    #     czy_przyznany = konto_osobiste.zaciagnij_kredyt(500)
+    #     self.assertFalse(czy_przyznany)
+    #     self.assertEqual(konto_osobiste.saldo, 0)
+
+    # def test_zaciagnij_kredyt_konto_osobiste_niewystarczajace_przychody(self):
+    #     konto_osobiste.historia = [-200, 100, 100, 100, 100]
+    #     czy_przyznany = konto_osobiste.zaciagnij_kredyt(500)
+    #     self.assertFalse(czy_przyznany)
+    #     self.assertEqual(konto_osobiste.saldo, 0)
