@@ -4,7 +4,6 @@ from ..Konto import Konto
 
 from ..RejestrKont import RejestrKont
 
-
 class TestAddPersonalAccountToList(unittest.TestCase):
 
     imie = "Dariusz"
