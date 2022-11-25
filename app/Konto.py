@@ -41,6 +41,13 @@ class KontoFirmowe(Konto):
         self.historia.append(-kwota)
         self.historia.append(-5)
 
+    def zaciagnij_kredyt(self, kwota):
+        if ((self.saldo >= kwota * 2) and (1775 in self.historia)):
+            self.saldo = self.saldo + kwota
+            return True
+        else:
+            return False
+
 
 
 def oblicz_rok_urodzenia_z_peselu(pesel: str) -> int:
