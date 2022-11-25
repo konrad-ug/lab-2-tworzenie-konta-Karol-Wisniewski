@@ -4,7 +4,7 @@ from parameterized import parameterized
 
 from ..Konto import Konto
 
-class TestTakeOutLoanPerson(unittest.TestCase):
+class TestTakeOutLoanPersonalAcc(unittest.TestCase):
 
     imie = "Dariusz"
     nazwisko = "Januszewski"
