@@ -10,7 +10,7 @@ class RejestrKont:
     def znajdzKontoPoPeselu(cls, pesel):
         for konto in cls.kontaOsobiste:
             if(konto.pesel == pesel):
-                return konto 
+                return konto
             return None
     
     @classmethod

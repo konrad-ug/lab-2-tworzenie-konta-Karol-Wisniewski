@@ -19,8 +19,11 @@ class TestAddPersonalAccountToList(unittest.TestCase):
         RejestrKont.dodajKontoOsobiste(self.konto_osobiste)
         self.assertEqual(RejestrKont.kontaOsobiste, [self.konto_osobiste])
 
-    def test_znajdz_konto_osobiste_po_peselu(self):
+    def test_znajdz_konto_osobiste_po_peselu_znaleziono(self):
         self.assertEqual(RejestrKont.znajdzKontoPoPeselu("87090883276"), self.konto_osobiste)
+
+    def test_znajdz_konto_osobiste_po_peselu_nie_znaleziono(self):
+        self.assertEqual(RejestrKont.znajdzKontoPoPeselu("87090883279"), None)
 
     def test_ilosc_kont_osobistych(self):
         RejestrKont.iloscKontOsobistych
