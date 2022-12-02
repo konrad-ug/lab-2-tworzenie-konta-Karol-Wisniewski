@@ -22,7 +22,8 @@ def wyszukaj_konto_z_peselem(pesel):
         return jsonify(
             imie=rezultat.imie,
             nazwisko=rezultat.nazwisko,
-            pesel=rezultat.pesel
+            pesel=rezultat.pesel,
+            saldo=rezultat.saldo
         ), 200
     else:
         return jsonify("Nie znaleziono konta"), 404
