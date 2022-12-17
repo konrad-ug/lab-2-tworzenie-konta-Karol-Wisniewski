@@ -36,6 +36,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        pip3 install --trusted-host=pypi.org --trusted-host=files.pythonhosted.org --user pip-system-certs
         pip3 install python-dotenv
         pip3 install requests
         pip3 install parameterized
