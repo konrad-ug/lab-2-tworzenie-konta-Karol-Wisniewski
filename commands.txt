@@ -1,0 +1,5 @@
+pip3 install --trusted-host=pypi.org --trusted-host=files.pythonhosted.org --user pip-system-certs
+
+python3 -m coverage run -m unittest
+
+python3 -m coverage raport
