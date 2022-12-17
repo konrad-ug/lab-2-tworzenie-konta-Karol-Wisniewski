@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 from .RejestrKont import RejestrKont
 from .Konto import Konto
+from datetime import date
 
 app = Flask(__name__)
+
+today = date.today()
 
 @app.route('/konta/stworz_konto', methods=['POST'])
 def stworz_konto():
@@ -46,3 +49,4 @@ def modyfikuj_konto(pesel):
     return jsonify(
         f"Konto zostało zmodyfikowane. Domyślne dane: {dane_konta_przed_modyfikacja} Zmienione dane: {dane}"
     ), 200
+    

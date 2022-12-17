@@ -1,3 +1,9 @@
+import requests
+import os
+from datetime import date
+from dotenv import load_dotenv
+load_dotenv()
+
 class Konto:
     def __init__(self, imie, nazwisko, pesel, kod = None):
         self.imie = imie
@@ -32,9 +38,30 @@ class Konto:
 class KontoFirmowe(Konto):
     def __init__(self, nazwa_firmy, NIP):
         self.nazwa_firmy = nazwa_firmy
-        self.NIP = NIP if len(NIP) == 10 else "Niepoprawny NIP!"
+        self.czy_NIP(NIP)
         self.saldo = 0
         self.historia = []
+    
+    def czy_NIP(self, NIP):
+        if (len(NIP) == 10 and NIP.isdigit()):
+            if (self.czy_prawdziwy_NIP(NIP)):
+                self.NIP = NIP
+            else:
+                self.NIP = "Pranie!"
+        else:
+            self.NIP = "Niepoprawny NIP!"
+
+    def czy_prawdziwy_NIP(self, NIP):
+        today_date = date.today()
+        today = today_date.strftime("%Y-%m-%d")
+        response = requests.get(
+            f"{os.environ.get('BANK_APP_MF_URL')}/api/search/nip/{NIP}?date={today}"
+        )
+        if (response.status_code == 200):
+            return True
+        else:
+            return False
+        
 
     def zaksieguj_przelew_wychodzacy_ekspresowy(self, kwota):
         self.saldo = self.saldo - kwota - 5 if kwota <= self.saldo and kwota > 0 else self.saldo
